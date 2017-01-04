@@ -1,0 +1,100 @@
+<html>
+   <head>
+      <title><link rel="shortcut icon" type="image/x-icon" href="http://www.google.com/url?q=http%3A%2F%2F52.40.107.189%3A8000%2Fstatic%2Fimages%2Fmacbook-hat_tie.png&sa=D&sntz=1&usg=AFQjCNFx_N1P-JOyb7m2GoOi41nz5yu53g"/>Home</title>
+       {%  load staticfiles %}
+      <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+      <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	  <style>
+    #header{
+    background: white;
+  font-family: 'Titillium Web', sans-serif;
+  }
+  .mdl-layout-title {
+  color: #179b77;
+  font-weight: 300;
+  font-size: 30px;
+  }
+  .material-icons {
+   font-size: 40px;
+   color: #179b77;
+  }
+  .mdl-button {
+    width : 250px;
+	height : 63px;
+	position : relative;
+	background-color: #179b77;
+	left : 10%;
+	color: white;
+  }
+  .mdl-button.mdl-button--raised {
+     background-color: #179b77;
+  }
+  .mdl-layout__content{
+     background: rgba(19, 35, 47, 0.9);
+  }
+	</style>
+   </head>
+
+<body>
+   <!-- The drawer is always open in large screens. The header is always shown,  even in small screens. -->
+   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+         <div class="mdl-layout__header-row" id = "header">
+            <!-- Title -->
+            <span class="mdl-layout-title"><b><img width="25px" src="{% static "images/macbook-hat_tie.png" %}"> Employ Ease</b></span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav class="mdl-navigation">
+            {% if logged_in == False %}
+               <i class="material-icons">power_settings_new</i>&nbsp &nbsp <a href="/auth/#login" style="color:#179b77; text-decoration:none; font-size:17px;">Sign In</a>&nbsp &nbsp
+                <i class="material-icons">account_circle</i>&nbsp;&nbsp;<a href="/auth/" style="color:#179b77; text-decoration:none; font-size:17px;">Sign Up</a>&nbsp &nbsp
+                {% else %}
+                <i class="material-icons">account_circle</i>&nbsp &nbsp <a href="/accounts/logout"   style="color:#179b77; text-decoration:none; font-size:17px;">Log out</a>&nbsp &nbsp
+            {% endif %}
+               {% if rights != 0 %}
+                <button id="addjob" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><center style="font-size:30px;">Employers</center>post jobs & find talent</button>
+                {% endif %}
+            </nav>
+         </div>
+      </header>
+      <main class="mdl-layout__content"><br><br>
+         <div class="page-content"><center style="color:white;"><h1 style = "color:#179b77;">Job Search</h1><h4>hunt your desired job</h4><br><h5>At Employ Ease, we're dedicated to making the job search process simple and stress free. Our job search engine is built with powerful <br>technology that aims to match the right job opportunities with the right people. To find the latest and most relevant job openings, simply <br>browse by job title, company, city or state. Browse thousands of part-time jobs near you and take the next step in your career!</h5><br><h1 style="color:#179b77;">Start your search now...</h1></center><br><br><br><br>
+		 <form class="form-inline" role="form">
+	    &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+         <div class="form-group">
+              <input id="job" type="text" class="form-control" style="height:9%;width:120%"><br>
+	          <label style="color:white;">Job Title or skill</label>
+         </div>
+		 &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp
+		 <div class="form-group">
+              <input type="text" id="location" class="form-control" style="height:9%;width:120%"><br>
+	          <label style="color:white;">Location</label>
+         </div>
+		 &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp
+		 <div class="form-group">
+              <input type="text" class="form-control" id="salary" style="height:9%;width:120%"><br>
+	          <label style="color:white;">Salary</label>
+         </div><br><br>
+    <center><a href="javascript:void(0);" id="search" class="btn btn-primary  btn-lg" style = "background-color:#179b77;border:#179b77;width:20%">search<span class="glyphicon glyphicon-search"></span></a>
+    </center>
+  </form>
+		 </div>
+      </main>
+   </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#search").click(function(){
+           window.location.href = "/jobs/"+$("#location").val()+"/"+$("#job").val()+"/"+$("#salary").val();
+        });
+        $("#addjob").click(function () {
+            window.location.href = "/add/";
+        })
+    });
+</script>
+</html>

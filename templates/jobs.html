@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><img src= "http://www.google.com/url?q=http%3A%2F%2F52.40.107.189%3A8000%2Fstatic%2Fimages%2Fmacbook-hat_tie.png&sa=D&sntz=1&usg=AFQjCNFx_N1P-JOyb7m2GoOi41nz5yu53g"/>EmployEase Jobs</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    {% load staticfiles %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css"%}"/>
+  <script src="{% static "js/jquery.min.js"%}"></script>
+    <script src="{%  static "js/bootstrap.min.js"%}"></script>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+      <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style>
+        #head{
+            background-color:rgba(19, 35, 47, 0.9);
+        }
+        .popup{
+            position: fixed;
+            top : 10%;
+            left:10%;
+            right: 10%;
+            bottom: 10%;
+            background-color: white;
+            z-index: 1000;
+            display: none;
+            padding : 10px;
+               -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+   -moz-box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
+            border-radius: 10px;
+        }
+        .close{
+            cursor: pointer;color : black;
+        }
+        #header{
+    background: white;
+  font-family: 'Titillium Web', sans-serif;
+  }
+  #mdl-layout-title {
+  color: #179b77;
+  font-weight: 300;
+  font-size: 20px;
+  }
+  #mdl-layout-lists {
+  color: white;
+  font-weight: 300;
+  font-size: 17px;
+  }
+  #mdl-layout-lists:hover{
+  color: #179b77;
+  }
+  .material-icons {
+   font-size: 40px;
+   color: #179b77;
+  }
+  .mdl-button {
+    width : 150px;
+   height : 43px;
+   background-color: #179b77;
+   color: white;
+  }
+  .mdl-button.mdl-button--raised {
+     background-color: #179b77;
+  }
+  .mdl-layout__content{
+     background: rgba(19, 35, 47, 0.9);
+  }
+     .mdl-log {
+    width : 150px;
+   height : 43px;
+   background-color: #179b77;
+   color: white;
+  }
+    </style>
+    <link href="{% static "bootstrap_alpha4/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+</head>
+<body>
+<!------------------------------------------------------------------------------->
+<nav class="navbar navbar-default" id = "head" >
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header" >
+    <br> <a class="navbar-brand" id = "mdl-layout-title" href="/">EmployeEase</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+      <ul class="nav navbar-nav">
+        <li><a href="/add/" id = "mdl-layout-lists"><br>Add a job &nbsp <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="javascript:void(0);" style = "color: #179b77;
+  font-weight: 300;
+  font-size: 17px;"><br>Jobs</a></li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search" onclick="return false;">
+        <div class="form-group">
+           &nbsp; &nbsp; &nbsp; &nbsp;
+            <br>
+         &nbsp; &nbsp; &nbsp; &nbsp;<input style="height:40px;margin-top: -16px;width : 300px" type="text" id="item" class="form-control" placeholder="Enter company name,type,location">
+        </div>
+          &nbsp; &nbsp;<button type="submit" id="search" class="mdl-button">Search</button>
+      </form>
+      <div class="nav navbar-collapse navbar-right" id="logout" style="color: white;margin-top: 15px;cursor : pointer;"><span class="glyphicon glyphicon-off"></span> Logout</div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!--------------------------------------------------------------------------------->
+<div class="body_main">
+<div class="popup" id="popup">
+    <span id="close" class="close">X</span>
+    <div class="outer" id="outer"></div>
+</div>
+<h1 align="center">Available jobs :</h1>
+<div  class="w3-container" style="display : inline-block">
+{% for x in jobs %}
+<div class="card text-xs-center" style="width: 400px;display:inline-block;margin-right: 2px;margin-top: 40px;">
+  <div class="card-header" style="color:white;background-color:rgba(19, 35, 47, 0.9);">
+    <h3 >{{ x.recruiter }}</h3>
+  </div>
+  <div class="card-block" class="mdl-button">
+    <h4 class="card-title"><b>Job</b> : {{ x.title }}</h4>
+      <p class="card-text"><b>Salary</b> : {{ x.salary }}</p>
+      <p class="card-text"><b>Job type</b> : {{ x.job_type }}</p>
+    <a href="javascript:void(0);" class="mdl-button" onclick="show({{ x.id }})">Details</a>
+  </div>
+  <div class="card-footer text-muted">
+    2 days ago
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+<script>
+    function show(matter) {
+        $("#popup").fadeToggle();
+        $("#outer").load("/about/"+matter);
+    }
+    $(document).ready(function(){
+        $("#close").click(function(){
+            $("#popup").fadeToggle();
+        });
+        $("#search").click(function(){
+            if($("#item").val()!='')
+                $(".body_main").load('http://localhost:8000/jobs/get/'+$("#item").val());
+        });
+        $("#logout").click(function () {
+            window.location.href="/accounts/logout/"
+        })
+    });
+</script>
+</body>
+</html>
